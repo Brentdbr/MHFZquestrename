@@ -15,7 +15,7 @@ def writefile(folder, filename, data): # writes a new file with the edited data.
     thing2 = binascii.unhexlify(thing)
     with open(f'{folder}/{filename}', 'wb') as f: # overwrites data to the quest files.
         f.write(thing2)
-    print(f'Written new data to {folder/filename}.')
+    print(f'Written new data to {folder}/{filename}.')
 
 def readvalues(bytes): # gets necessary values to get the pointers and stuff.
     end_pointerl = hex(int(len(bytes)/2))[-4:]
