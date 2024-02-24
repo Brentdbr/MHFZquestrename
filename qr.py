@@ -52,7 +52,8 @@ def populatepointers(bytes, maintext, mainvalues): # populate all pointers.
     np8 = hex(int(np7,16) + (mainvalues['dif7']))[2:]
     
     # swap first 2 characters with last 2 characters for new_pointer, place it in the general text pointer spot and turn new pointers into a list for next step.
-    if len(new_pointerl) == 3: new_pointer = f'{new_pointerl[-2:] + new_pointerl[:-2] + "0"}'.encode('utf-8')
+    # in the case of the pointer starting on a new row of bytes, add a 0 to prevent uneven data length.
+    if len(new_pointerl) == 3: new_pointer = f'{new_pointerl[-2:] + "0" + new_pointerl[:-2]}'.encode('utf-8')
     else: new_pointer = f'{new_pointerl[-2:] + new_pointerl[:-2]}'.encode('utf-8')
     bytes = bytes[:464] + new_pointer + bytes[468:]
     newpointers = [np1,np2,np3,np4,np5,np6,np7,np8]
