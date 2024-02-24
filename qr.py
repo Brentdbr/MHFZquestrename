@@ -52,7 +52,8 @@ def populatepointers(bytes, maintext, mainvalues): # populate all pointers.
     np8 = hex(int(np7,16) + (mainvalues['dif7']))[2:]
     
     # swap first 2 characters with last 2 characters for new_pointer, place it in the general text pointer spot and turn new pointers into a list for next step.
-    new_pointer = f'{new_pointerl[-2:] + new_pointerl[:-2]}'.encode('utf-8')
+    if len(new_pointerl) == 3: new_pointer = f'{new_pointerl[-2:] + new_pointerl[:-2] + "0"}'.encode('utf-8')
+    else: new_pointer = f'{new_pointerl[-2:] + new_pointerl[:-2]}'.encode('utf-8')
     bytes = bytes[:464] + new_pointer + bytes[468:]
     newpointers = [np1,np2,np3,np4,np5,np6,np7,np8]
     
@@ -81,7 +82,7 @@ if sys.argv[1] and sys.argv[2]:
                 writefile(sys.argv[1], file, newfiledata)
 
     except Exception as e: # throws an exception if something's wrong. report this back to me.
-            print(f"Error: {e}")
+        print(f"Error: {e}")
 else: # standard reporting to user of incorrect usage.
     print("Use this script by running it in your cmd.\nExample: py qr.py foldername editedfile\npy qr.py 55693 55693d0.bin\nExiting in 5 seconds.")
     time.sleep(5)
